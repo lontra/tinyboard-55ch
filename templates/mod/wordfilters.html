@@ -1,0 +1,51 @@
+<div class="row">
+
+	<div class="col-xs-12 col-sm-5">
+		<h3>New Filter</h3>
+		{% include 'mod/wordfilter_form.html' %}
+	</div>
+
+	<div class="col-xs-12 col-sm-7">
+		<h3>Filters</h3>
+		<ul class="nav nav-tabs">
+			{% for board in boards %}
+			<li {% if loop.first %}class="active"{% endif %}><a href="#{{ board.uri }}" data-toggle="tab">{{ board.uri }}</a></li>
+			{% endfor %}
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			{% for board in boards %}
+			
+				<div class="tab-pane {% if loop.first %}active{% endif %}" id="{{ board.uri }}">
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Word</th>
+									<th>Change to</th>
+									<th style="text-align: center">Regex?</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for wordfilter in wordfilters[board.uri] %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ wordfilter.0 }}</td>
+										<td>{{ wordfilter.1 }}</td>
+										<td style="text-align: center">
+											<span class="glyphicon glyphicon-{% if wordfilter.2 %}check{% else %}unchecked{% endif %}" style="vertical-align: middle;"></span>
+										</td>
+										<td><a href="?/wordfilters/delete/{{ board.uri }}/{{ loop.index0 }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

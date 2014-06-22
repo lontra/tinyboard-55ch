@@ -1,0 +1,138 @@
+<form role="form" method="post" action="?/search_ip">
+	<div class="row">
+		<div class="col-xs-12 col-sm-4">
+			<div class="form-group">
+				<label for="inp_ip">IP</label>
+				<input type="text" class="form-control" name="input_ip" id="inp_ip" placeholder="{% trans 'Enter IP' %}">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>{% trans 'Boards' %}</label>
+		<div class="well well-sm">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="checkbox">
+						<label>
+						<input type="checkbox" name="all_boards" id="all_boards_check">{% trans 'All boards' %}
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% for board in boards %}
+				<div class="col-xs-4 col-sm-2 col-md-1">
+					<div class="checkbox">
+						<label>
+						<input type="checkbox" class="selectedboard" name="check_boards[]" value="{{ board.uri }}">/{{ board.uri }}/
+						</label>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+	{% raw %}
+	<script type="text/javascript">
+		$().ready(function () {
+			$("#all_boards_check").click(function(){
+				$('input:checkbox').not(this).prop('checked', this.checked);
+			});
+			$('.selectedboard').click(function(){
+				if ($(".selectedboard").length == $(".selectedboard:checked").length) {
+					$("#all_boards_check").attr("checked", "checked");
+				} else {
+					$("#all_boards_check").removeAttr("checked");
+				}
+			});
+		});
+	</script>
+	{% endraw %}
+</form>
+
+{% if results %}
+<p>Showing {{ result_count }} result{% if result_count != 1 %}s{% endif %}.</p>
+
+{% for post in results %}
+<div class="well well-sm">
+	<div class="row">
+		<div class="col-xs-12">
+			<strong><a href="?/{{ post.tablename }}/res/{% if post.thread %}{{ post.thread }}{% else %}{{ post.id }}{% endif %}.html#{{ post.id }}">/{{ post.tablename }}/{{ post.id }}</a> - </strong>
+			<span class="name">{{ post.name }} </span>
+			[<a class="ip-link" href="?/IP/{{ post.ip }}">{{ post.ip }}</a>] 
+			<time datetime="{{ post.time|date('%Y-%m-%dT%H:%M:%S') }}{{ timezone() }}">{{ post.time|date(config.post_date) }} </time>
+			<a class="post_no" href="?/{{ post.tablename }}/res/{% if post.thread %}{{ post.thread }}{% else %}{{ post.id }}{% endif %}.html#{{ post.id }}">No.</a>
+			<a class="post_no" href="?/{{ post.tablename }}/res/{% if post.thread %}{{ post.thread }}{% else %}{{ post.id }}{% endif %}.html#q{{ post.id }}">{{ post.id }}</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 
+		{% if (post.embed) or (post.file) %}
+		col-sm-3 {% else %} hidden{% endif %}">
+			{% if post.embed %}
+				{{ post.embed }}
+			{% elseif post.file == 'deleted' %}
+				<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
+			{% elseif post.file and post.file %}
+				<p class="fileinfo">{% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a> <span class="unimportant">
+				(
+					{% if post.thumb == 'spoiler' %}
+						{% trans %}Spoiler Image{% endtrans %}, 
+					{% endif %}
+					{{ post.filesize|filesize }}
+					{% if post.filewidth and post.fileheight %}
+						, {{ post.filewidth}}x{{ post.fileheight }}
+						{% if config.show_ratio %}
+							, {{ post.ratio }}
+						{% endif %}
+					{% endif %}
+					{% if config.show_filename and post.filename %}
+						, 
+						{% if post.filename|length > config.max_filename_display %}
+							<span class="postfilename" title="{{ post.filename|e }}">{{ post.filename|truncate(config.max_filename_display)|bidi_cleanup }}</span>
+						{% else %}
+							<span class="postfilename">{{ post.filename|e|bidi_cleanup }}</span>
+						{% endif %}
+					{% endif %}
+					{% if post.thumb != 'file' and config.image_identification %}
+						, 
+						<span class='image_id'>
+						 <a href="http://imgops.com/{{ config.domain }}{{ config.uri_img }}{{ post.file }}">io</a>
+						{% if post.file|extension == 'jpg' %}
+							 <a href="http://regex.info/exif.cgi?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">e</a>
+						{% endif %}
+						 <a href="http://www.google.com/searchbyimage?image_url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">g</a>
+						 <a href="http://www.tineye.com/search?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">t</a>
+						</span>
+					{% endif %}
+				)
+				</span></p>
+			<a href="{{ config.root }}{{ post.tablename }}/{{ config.dir.img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
+			<img class="img-responsive" src="
+				{% if post.thumb == 'file' %}
+					{{ config.root }}
+					{% if config.file_icons[post.filename|extension] %}
+						{{ config.file_thumb|sprintf(config.file_icons[post.filename|extension]) }}
+					{% else %}
+						{{ config.file_thumb|sprintf(config.file_icons.default) }}
+					{% endif %}
+				{% elseif post.thumb == 'spoiler' %}
+					{{ config.root }}{{ config.spoiler_image }}
+				{% else %}
+					{{ config.root }}{{ post.tablename }}/{{ config.dir.thumb }}{{ post.thumb }}
+				{% endif %}"  alt="" /></a>
+			{% endif %}
+		</div>
+		<div class="col-xs-12 {% if (post.embed) or (post.file) %}col-sm-9{% endif %}">
+			<br>
+			{# post.body_nomarkup|length > 400 ? post.body_nomarkup|slice(0, 400)|nl2br ~ ' ...' : post.body_nomarkup|nl2br  #}
+			{{ post.body }}
+
+		</div>
+	</div>
+</div>
+
+{% endfor %}
+
+{% endif %}

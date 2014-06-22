@@ -1,0 +1,114 @@
+<div class="row">
+
+	<div class="col-xs-12">
+		<h3>New Content Filter</h3>
+		{% include 'mod/filter_form.html' %}
+	</div>
+
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<h3>Filters</h3>
+		<ul class="nav nav-tabs">
+			{% for board in boards %}
+			<li {% if loop.first %}class="active"{% endif %}><a href="#{{ board.uri }}" data-toggle="tab">{{ board.uri }}</a></li>
+			{% endfor %}
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			{% for board in boards %}
+			
+				<div class="tab-pane {% if loop.first %}active{% endif %}" id="{{ board.uri }}">
+					{% for filter in filters[board.uri] %}
+						<div class="well well-sm">
+							<a href="?/filters/delete/{{ board.uri }}/{{ loop.index0 }}"><span class="glyphicon glyphicon-remove"></span></a><br>
+							<strong>Conditions</strong><br>
+							{% if filter['condition']['name'] %}
+								<span>Name: </span>
+								<span>{{ filter['condition']['name'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['trip'] %}
+								<span>Trip: </span>
+								<span>{{ filter['condition']['trip'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['email'] %}
+								<span>Email: </span>
+								<span>{{ filter['condition']['email'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['subject'] %}
+								<span>Subject: </span>
+								<span>{{ filter['condition']['subject'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['body'] %}
+								<span>Body: </span>
+								<span>{{ filter['condition']['body'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['has_file'] %}
+								<span>Has File: </span>
+								<span>{{ filter['condition']['has_file'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['file_hash'] %}
+								<span>File Hash: </span>
+								<span>{{ filter['condition']['file_hash'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['filename'] %}
+								<span>Filename: </span>
+								<span>{{ filter['condition']['filename'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['extension'] %}
+								<span>Extension: </span>
+								<span>{{ filter['condition']['extension'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['ip'] %}
+								<span>IP: </span>
+								<span>{{ filter['condition']['ip'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['OP'] %}
+								<span>OP: </span>
+								<span>{{ filter['condition']['OP'] }}</span><br>
+							{% endif %}
+							{% if filter['condition']['custom'] %}
+								<span>Custom: </span>
+								<span>{{ filter['condition']['custom'] }}</span><br>
+							{% endif %}
+							<strong>Actions</strong><br>
+							{% if filter['action'] == 'reject' %}
+								<span>Action: </span>
+								<span>{{ filter['action'] }}</span><br>
+								{% if filter['message'] %}
+									<span>Message: </span>
+									<span>{{ filter['message'] }}</span><br>
+								{% endif %}
+							{% endif %}
+							{% if filter['action'] == 'ban' %}
+								<span>Action: </span>
+								<span>{{ filter['action'] }}</span><br>
+								{% if filter['reason'] %}
+									<span>Reason: </span>
+									<span>{{ filter['reason'] }}</span><br>
+								{% endif %}
+								{% if filter['expires'] %}
+									<span>Expires: </span>
+									<span>{{ filter['expires'] }}</span><br>
+								{% endif %}
+								{% if filter['reject'] %}
+									<span>Reject: </span>
+									<span>{{ filter['reject'] }}</span><br>
+								{% endif %}
+								{% if filter['message'] %}
+									<span>Message: </span>
+									<span>{{ filter['message'] }}</span><br>
+								{% endif %}
+								{% if filter['all_boards'] %}
+									<span>All Boards: </span>
+									<span>{{ filter['all_boards'] }}</span><br>
+								{% endif %}
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

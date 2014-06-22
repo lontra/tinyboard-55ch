@@ -1,0 +1,115 @@
+<p class="unimportant">Regras de como fazer um filtro: <a href="http://tinyboard.org/docs/index.php?p=Config/Filters" target="_blank">aqui</a></p>
+<form role="form" class="inline-form" action="?/filters" method="post">
+	<input type="hidden" name="token" value="{{ token }}">
+	<h2>Conditions</h2>
+	<div class="form-group">
+		<label for="name">Name:</label>
+		<input class="form-control input-sm" id="name" name="name" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="trip">Trip:</label>
+		<input class="form-control input-sm" id="trip" name="trip" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="email">Email:</label>
+		<input class="form-control input-sm" id="email" name="email" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="subject">Subject:</label>
+		<input class="form-control input-sm" id="subject" name="subject" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="body">Body:</label>
+		<input class="form-control input-sm" id="body" name="body" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="has_file">Has File
+		</label>
+	</div>
+
+	<div class="form-group">
+		<label for="filehash">Filehash:</label>
+		<input class="form-control input-sm" id="filehash" name="filehash" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="filename">Filename:</label>
+		<input class="form-control input-sm" id="filename" name="filename" type="text" size="60" value="{{ word_insertion|e }}">
+	</div>
+	
+	<div class="form-group">
+		<label for="extension">Extension:</label>
+		<input class="form-control input-sm" id="extension" name="extension" type="text" size="60" value="{{ counterpart_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="ip">IP:</label>
+		<input class="form-control input-sm" id="ip" name="ip" type="text" size="60" value="{{ counterpart_insertion|e }}">
+	</div>
+	
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="OP">OP
+		</label>
+	</div>
+
+	<div class="form-group">
+		<label for="custom">Custom:</label>
+		<textarea class="form-control input-sm" id="custom" name="custom" rows="3"></textarea>
+	</div>
+	<hr>
+	<h2>Actions</h2>
+	<div class="form-group">
+		<label for="action">Action:</label>
+		<select id="action" name="action">
+			<option value="ban" selected>Ban</option>
+			<option value="reject" selected>Reject</option>
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="message">Message:</label>
+		<input class="form-control input-sm" id="message" name="message" type="text" size="60" value="{{ counterpart_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="reason">Reason:</label>
+		<input class="form-control input-sm" id="reason" name="reason" type="text" size="60" value="{{ counterpart_insertion|e }}">
+	</div>
+
+	<div class="form-group">
+		<label for="expires">Expires:</label>
+		<input class="form-control input-sm" id="expires" name="expires" type="text" size="60" value="{{ counterpart_insertion|e }}">
+	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="reject">Reject
+		</label>
+	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" name="all_boards">All Boards
+		</label>
+	</div>
+
+	<div class="form-group">
+		<label>Boards:</label>
+	</div>
+	{% for board in boards %}
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="check_boards[]" value="{{ board.uri }}">{{ board.uri }}
+			</label>
+		</div>
+	{% endfor %}
+
+	<button type="submit" class="btn btn-default">Insert</button>
+</form>
