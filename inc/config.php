@@ -477,8 +477,7 @@
 	// Whether to turn URLs into functional links.
 	$config['markup_urls'] = true;
 	// Optional URL prefix for links (eg. "http://anonym.to/?").
-	$config['link_prefix'] = '';
-	$config['url_ads'] = &$config['link_prefix'];	 // leave alias
+	$config['link_prefix'] = ''; 
 	
 	// Allow "uploading" images via URL as well. Users can enter the URL of the image and then Tinyboard will
 	// download it. Not usually recommended.
@@ -490,9 +489,9 @@
 	// as they are submitted and changes or censors particular words or phrases.
 
 	// For a normal string replacement:
-	$config['wordfilters'][] = array('negro', 'paixão');	
+	// $config['wordfilters'][] = array('cat', 'dog');	
 	// Advanced raplcement (regular expressions):
-	//$config['wordfilters'][] = array('/ca[rt]/', 'dog', true); // 'true' means it's a regular expression
+	// $config['wordfilters'][] = array('/ca[rt]/', 'dog', true); // 'true' means it's a regular expression
 
 	// Always act as if the user had typed "noko" into the email field.
 	$config['always_noko'] = false;
@@ -504,12 +503,12 @@
 
 	// Allow users to mark their image as a "spoiler" when posting. The thumbnail will be replaced with a
 	// static spoiler image instead (see $config['spoiler_image']).
-	$config['spoiler_images'] = true;
+	$config['spoiler_images'] = false;
 
 	// With the following, you can disable certain superfluous fields or enable "forced anonymous".
 
 	// When true, all names will be set to $config['anonymous'].
-	$config['field_disable_name'] = true;
+	$config['field_disable_name'] = false;
 	// When true, there will be no email field.
 	$config['field_disable_email'] = false;
 	// When true, there will be no subject field.
@@ -519,15 +518,10 @@
 	// When true, a blank password will be used for files (not usable for deletion).
 	$config['field_disable_password'] = false;
 
-	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
-	$config['field_email_selectbox'] = false;
-
-	// Attach country flags to posts.
+	// Attach country flags to posts. Requires the PHP "geoip" extension to be installed:
+	// http://www.php.net/manual/en/intro.geoip.php. In the future, maybe I will find and include a proper
+	// pure-PHP geolocation library.
 	$config['country_flags'] = false;
-
-	// Load all country flags from one file
-	$config['country_flags_condensed'] = true;
-	$config['country_flags_condensed_css'] = 'static/flags/flags.css';
 
 /*
 * ====================
@@ -564,7 +558,7 @@
 	$config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
 	$config['markup'][] = array("/''(.+?)''/", "<em>\$1</em>");
 	$config['markup'][] = array("/\*\*(.+?)\*\*/", "<span class=\"spoiler\">\$1</span>");
-	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
+	// $config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 
 	// Highlight PHP code wrapped in <code> tags (PHP 5.3+)
 	// $config['markup'][] = array(
@@ -714,11 +708,6 @@
 	// Display image identification links using regex.info/exif, TinEye and Google Images.
 	$config['image_identification'] = false;
 
-	// Number of posts in a "View Last X Posts" page
-	$config['noko50_count'] = 50;
-	// Number of posts a thread needs before it gets a "View Last X Posts" page.
-	// Set to an arbitrarily large value to disable.
-	$config['noko50_min'] = 100;
 /*
  * ====================
  *  Board settings
@@ -744,11 +733,6 @@
 	// Number of reports you can create at once.
 	$config['report_limit'] = 3;
 
-	// Attention Whoring Bar
-	// REMEMBER TO CHMOD attentionbar.txt PROPERLY
-	// Oh, and add jQuery in additional_javascript.
-	$config['attention_bar'] = false;
-
 	// Allow unfiltered HTML in board subtitles. This is useful for placing icons and links.
 	$config['allow_subtitle_html'] = false;
 
@@ -759,13 +743,13 @@
  */
 
 	// Tinyboard has been translated into a few langauges. See inc/locale for available translations.
-	//$config['locale'] = 'en'; // (en, ru_RU.UTF-8, fi_FI.UTF-8, pl_PL.UTF-8)
+	$config['locale'] = 'en'; // (en, ru_RU.UTF-8, fi_FI.UTF-8, pl_PL.UTF-8)
 
 	// Timezone to use for displaying dates/tiems.
-	$config['timezone'] = 'America/Sao_Paulo';
+	$config['timezone'] = 'America/Los_Angeles';
 	// The format string passed to strftime() for displaying dates.
 	// http://www.php.net/manual/en/function.strftime.php
-	$config['post_date'] = '%d/%m/%y (%a) %H:%M:%S';
+	$config['post_date'] = '%m/%d/%y (%a) %H:%M:%S';
 	// Same as above, but used for "you are banned' pages.
 	$config['ban_date'] = '%A %e %B, %Y';
 
@@ -779,7 +763,7 @@
 	$config['poster_id_length'] = 5;
 
 	// Show thread subject in page title.
-	$config['thread_subject_in_title'] = true;
+	$config['thread_subject_in_title'] = false;
 
 	// Additional lines added to the footer of all pages.
 	$config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
@@ -834,7 +818,7 @@
 	// );
 
 	// Whether or not to put brackets around the whole board list
-	$config['boardlist_wrap_bracket'] = false;
+	$config['boardlist_wrap_bracket'] = true;
 
 	// Show page navigation links at the top as well.
 	$config['page_nav_top'] = false;
@@ -859,15 +843,6 @@
 	// Automatically remove unnecessary whitespace when compiling HTML files from templates.
 	$config['minify_html'] = true;
 
-	/*
-	 * Advertisement HTML to appear at the top and bottom of board pages.
-	 */
-
-	// $config['ad'] = array(
-	//	'top' => '',
-	//	'bottom' => '',
-	// );
-
 	// Display flags (when available). This config option has no effect unless poster flags are enabled (see
 	// $config['country_flags']). Disable this if you want all previously-assigned flags to be hidden.
 	$config['display_flags'] = true;
@@ -886,7 +861,7 @@
  */
 
 	// Additional Javascript files to include on board index and thread pages. See js/ for available scripts.
-	// $config['additional_javascript'][] = 'js/inline-expanding.js';
+	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	// $config['additional_javascript'][] = 'js/local-time.js';
 
 	// Some scripts require jQuery. Check the comments in script files to see what's needed. When enabling
@@ -910,7 +885,7 @@
 	$config['minify_js'] = false;
 
 	// Allows js/quick-reply-old.js to work. This could make your imageboard more vulnerable to flood attacks.
-	$config['quick_reply'] = true;
+	$config['quick_reply'] = false;
 
 /*
  * ====================
@@ -1015,7 +990,6 @@
 	$config['error']['modexists']		= _('That mod <a href="?/users/%d">already exists</a>!');
 	$config['error']['invalidtheme']	= _('That theme doesn\'t exist!');
 	$config['error']['csrf']		= _('Invalid security token! Please go back and try again.');
-	$config['error']['badsyntax']		= _('Your code contained PHP syntax errors. Please go back and correct them. PHP says: ');
 
 /*
  * =========================
@@ -1047,7 +1021,6 @@
 	// Location of files.
 	$config['file_index'] = 'index.html';
 	$config['file_page'] = '%d.html';
-	$config['file_page50'] = '%d+50.html';
 	$config['file_mod'] = 'mod.php';
 	$config['file_post'] = 'post.php';
 	$config['file_script'] = 'main.js';
@@ -1071,9 +1044,6 @@
 	$config['dir']['themes_uri'] = 'templates/themes';
 	// Home directory. Used by themes.
 	$config['dir']['home'] = '';
-
-	// Location of a blank 1x1 gif file. Only used when country_flags_condensed is enabled
-	// $config['image_blank'] = 'static/blank.gif';
 
 	// Static images. These can be URLs OR base64 (data URI scheme). These are only used if
 	// $config['font_awesome'] is false (default).
@@ -1150,9 +1120,6 @@
 	//	'color:red;font-weight:bold' // Change tripcode style; optional
 	//);
 
-	// Enable the moving of single replies
-	$config['move_replies'] = true;
-
 	// How often (minimum) to purge the ban list of expired bans (which have been seen). Only works when
 	//  $config['cache'] is enabled and working.
 	$config['purge_bans'] = 60 * 60 * 12; // 12 hours
@@ -1181,7 +1148,7 @@
 	$config['mod']['check_ban_message'] = false;
 	// Default public ban message. In public ban messages, %length% is replaced with "for x days" or
 	// "permanently" (with %LENGTH% being the uppercase equivalent).
-	$config['mod']['default_ban_message'] = _('O USUÁRIO FOI CONVIDADO A VISITAR SEUS AMIGUINHOS RSRS');
+	$config['mod']['default_ban_message'] = _('USER WAS BANNED FOR THIS POST');
 	// $config['mod']['default_ban_message'] = 'USER WAS BANNED %LENGTH% FOR THIS POST';
 	// HTML to append to post bodies for public bans messages (where "%s" is the message).
 	$config['mod']['ban_message'] = '<span class="public_ban">(%s)</span>';
@@ -1281,9 +1248,9 @@
 	// View whether a thread has been bumplocked ("-1" to allow non-mods to see too)
 	$config['mod']['view_bumplock'] = MOD;
 	// Edit posts
-	$config['mod']['editpost'] = MOD;
+	$config['mod']['editpost'] = ADMIN;
 	// "Move" a thread to another board (EXPERIMENTAL; has some known bugs)
-	$config['mod']['move'] = ADMIN;
+	$config['mod']['move'] = DISABLED;
 	// Bypass "field_disable_*" (forced anonymity, etc.)
 	$config['mod']['bypass_field_disable'] = MOD;
 	// Post bypass unoriginal content check on robot-enabled boards
@@ -1292,7 +1259,7 @@
 	$config['mod']['bypass_filters'] = ADMIN;
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
-	$config['mod']['rawhtml'] = MOD;
+	$config['mod']['rawhtml'] = ADMIN;
 
 	/* Administration */
 	// View the report queue
@@ -1416,28 +1383,6 @@
 
 /*
  * ====================
- *  Public post search
- * ====================
- */
-	$config['search'] = array();
-
-	// Enable the search form
-	$config['search']['enable'] = false;
-
-	// Maximal number of queries per IP address per minutes
-        $config['search']['queries_per_minutes'] = Array(15, 2);
-
-	// Global maximal number of queries per minutes
-        $config['search']['queries_per_minutes_all'] = Array(50, 2);
-
-	// Limit of search results
-        $config['search']['search_limit'] = 100;
-        
-	// Boards for searching
-        //$config['search']['boards'] = array('a', 'b', 'c', 'd', 'e');
-
-/*
- * ====================
  *  Events (PHP 5.3.0+)
  * ====================
  */
@@ -1463,7 +1408,7 @@
 
 	// Whether or not to enable the 4chan-compatible API, disabled by default. See
 	// https://github.com/4chan/4chan-API for API specification.
-	$config['api']['enabled'] = true;
+	$config['api']['enabled'] = false;
 
 	// Extra fields in to be shown in the array that are not in the 4chan-API. You can get these by taking a
 	// look at the schema for posts_ tables. The array should be formatted as $db_column => $translated_name.
@@ -1520,167 +1465,3 @@
 	// is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.
 	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
 
-	// Youtube.js embed HTML code
-	$config['youtube_js_html'] = '<div class="video-container" data-video="$2">'.
-		'<a href="$0" target="_blank" class="file">'.
-		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
-		'</a></div>';
-
-/*
- * ====================
- *  Defaults for 55ch
- * ====================
- */
-	// Only admins can post to the noticeboard
-	$config['mod']['noticeboard_post'] = MOD;
-	// View the search IP page - Only MODS and ADMINS
-	$config['mod']['search_ip'] = MOD;
-	// View the wordfilters page
-	$config['mod']['wordfilters'] = DISABLED;
-	// View the filters page
-	$config['mod']['filters'] = ADMIN;
-	// View the recent posts page
-	$config['mod']['recent'] = MOD;
-
-	$config['additional_javascript'] = array();
-	$config['additional_javascript'][] = 'js/jquery.min.js';
-	$config['additional_javascript'][] = 'js/style-select.js';
-	$config['additional_javascript'][] = 'js/expand.js';
-	$config['additional_javascript'][] = 'js/hide-images.js';
-	$config['additional_javascript'][] = 'js/hide-threads.js';
-	$config['additional_javascript'][] = 'js/quick-post-controls.js';
-	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
-    $config['additional_javascript'][] = 'js/quick-reply.js';
-	$config['additional_javascript'][] = 'js/toggle-images.js';
-	$config['additional_javascript'][] = 'js/post-hover.js'; // must come before show-backlinks.js
-	$config['additional_javascript'][] = 'js/show-backlinks.js';
-	$config['additional_javascript'][] = 'js/inline-expanding.js';
-	$config['additional_javascript'][] = 'js/expand-all-images.js';
-	$config['additional_javascript'][] = 'js/catalog-link.js';
-    $config['additional_javascript'][] = 'js/show-op.js';
-	$config['additional_javascript'][] = 'js/mobile-style.js';
-	$config['additional_javascript'][] = 'js/titlebar-notifications.js';
-	$config['additional_javascript'][] = 'js/auto-reload.js';
-	$config['additional_javascript'][] = 'js/watch.js';
-
-	// Make stylesheet selections board-specific.
-	$config['stylesheets_board'] = true;
-
-
-	// $config['use_bootstrap'] = true;
-	$config['bootstrap_stylesheet'] = 'bootstrap.min.css';
-
-
-	$config['use_favela_wordfilters'] = false;
-	$config['use_favela_filters'] = false;
-
-	$config['filenameclick_expand_new'] = true;
-
-	// Enable the search form
-	$config['search']['enable'] = true;
-
-	// Boards for searching
-	$config['search']['boards'] = array('a', 'b', 'd', 'mod');
-
-
-	$config['stylesheets']['Favela'] = 'favela.css';
-	$config['stylesheets']['Yotsuba B'] = ''; // Default; there is no additional/custom stylesheet for this.
-	$config['stylesheets']['Yotsuba'] = 'yotsuba.css';
-	$config['stylesheets']['Futaba'] = 'futaba.css';
-	$config['stylesheets']['Dark'] = 'dark.css';
-	$config['stylesheets']['Festaduro'] = 'festaduro.css';
-	$config['stylesheets']['Cotas'] = 'cotas.css';
-	$config['stylesheets']['Burichan'] = 'burichan.css';
-	$config['stylesheets']['Jj'] = 'jj.css';
-	$config['stylesheets']['Nigrachan'] = 'nigrachan.css';
-	$config['stylesheets']['Novo Jungle'] = 'novo_jungle.css';
-	$config['stylesheets']['Confraria'] = 'confraria.css';
-	$config['stylesheets']['Dark Roach'] = 'dark_roach.css';
-	$config['stylesheets']['Ferus'] = 'ferus.css';
-	$config['stylesheets']['Futaba+vichan'] = 'futaba+vichan.css';
-	$config['stylesheets']['Futaba Light'] = 'futaba-light.css';
-	$config['stylesheets']['Gentoochan'] = 'gentoochan.css';
-	$config['stylesheets']['Jungle'] = 'jungle.css';
-	$config['stylesheets']['Luna'] = 'luna.css';
-	$config['stylesheets']['Miku'] = 'miku.css';
-	$config['stylesheets']['Notsuba'] = 'notsuba.css';
-	$config['stylesheets']['Photon'] = 'photon.css';
-	$config['stylesheets']['Piwnichan'] = 'piwnichan.css';
-	$config['stylesheets']['Ricechan'] = 'ricechan.css';
-	$config['stylesheets']['Roach'] = 'roach.css';
-	$config['stylesheets']['Stripes'] = 'stripes.css';
-	$config['stylesheets']['szalet'] = 'szalet.css';
-	$config['stylesheets']['Terminal 2'] = 'terminal2.css';
-	$config['stylesheets']['Testorange'] = 'testorange.css';
-	$config['stylesheets']['Wasabi'] = 'wasabi.css';
-
-	// The default stylesheet to use.
-	$config['default_stylesheet'] = array('Favela', $config['stylesheets']['Favela']);
-
-	// boardlist
-	$config['boards'] = array(
-		array('*','a','b','d','mod','cri','c'),
-		array('an','lit','mu','tv','jo','lan'),
-		array('cb','comp','help','pol','UF55','sch'),
-		array('34','pr0n','pinto','tr'),
-		array('esp','o','high','mimimi','gtk'),
-		array('$','fit','pfiu','vs'),
-		array('irc' => 'https://kiwiirc.com/client/irc.rizon.net/55ch')
-	);
-
-	$config['categories'] = array(
-		'VIP' => array('a','b','d','mod','cri','c'),
-		'Mídia' => array('an','lit','mu','tv','jo','lan'),
-		'Barracks' => array('cb','comp','help','pol','UF55','sch'),
-		'Amor amorrr' => array('34','pr0n','pinto','tr'),
-		'Outcasts' => array('esp','o','high','mimimi','gtk'),
-		'Experimental' => array('$','fit','pfiu','vs')
-	);
-
-	// capcodes
-	// "## Custom" becomes lightgreen, italic and bold:
-	$config['custom_capcode']['Custom'] ='<span class="capcode" style="color:lightgreen;font-style:italic;font-weight:bold"> ## %s</span>';
-
-	// "## Admin" makes everything purple, including the name and tripcode:
-	$config['custom_capcode']['Admin'] = array(
-		'<span class="capcode" style="color:purple"> ## %s</span>',
-		'color:purple', // Change name style; optional
-		'color:purple' // Change tripcode style; optional
-	);
-
-	// "## Mod" makes everything red and bold, including the name and tripcode:
-	$config['custom_capcode']['Mod'] = array(
-		'<span class="capcode" style="color:red;font-weight:bold"> ## %s</span>',
-		'color:red;font-weight:bold', // Change name style; optional
-		'color:red;font-weight:bold' // Change tripcode style; optional
-	);
-
-	// The default name (ie. Anonymous).
-	$config['anonymous'] = 'Anônimo';
-
-	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
-	$config['field_email_selectbox'] = true;
-
-	// Display image identification links using regex.info/exif, TinEye and Google Images.
-	$config['image_identification'] = true;
-
-	// When true, all names will be set to $config['anonymous']. Exceto na área de administração.
-	$config['field_disable_name'] = true;
-
-	// "Wiki" markup syntax ($config['wiki_markup'] in pervious versions):
-	$config['markup'][] = array("/\[b\](.+?)\[\/b\]/", "<strong>\$1</strong>");
-	$config['markup'][] = array("/\[\i\](.+?)\[\/i\]/", "<em>\$1</em>");
-	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
-
-	// Optional banner image at the top of every page.
-	$config['url_banner'] = $config['root'].'banners/banners.php';
-	// Banner dimensions are also optional. As the banner loads after the rest of the page, everything may be
-	// shifted down a few pixels when it does. Making the banner a fixed size will prevent this.
-	$config['banner_width'] = 300;
-	$config['banner_height'] = 100;
-
-	// 55chan's ads
-	$config['global_message'] = '<iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe><iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe><iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe>';
-	
-	// Tinyboard has been translated into a few langauges. See inc/locale for available translations.
-	$config['locale'] = 'pt_BR.UTF-8'; // default locale to pt_BR
