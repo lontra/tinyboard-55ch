@@ -798,7 +798,6 @@ function threadSageLocked($id) {
 }
 
 function threadExists($id) {
-
 	global $board;
 
 	$query = prepare(sprintf("SELECT 1 FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
