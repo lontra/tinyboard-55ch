@@ -1,3 +1,5 @@
+# NÃO SUBSTITUA ESSE. TIREI ESSES ARQUIVOS APENAS PARA VOCÊ TER UMA IDEIA
+
 # static html and json
 /*/*.html
 /*/*.json
@@ -12,10 +14,10 @@
 !/inc/config.php
 
 # minify
-/inc/lib/minify
+#/inc/lib/minify
 
 # instance-config
-#/inc/instance-config.php
+/inc/instance-config.php
 
 # .installed
 /.installed
