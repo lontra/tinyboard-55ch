@@ -210,7 +210,7 @@ function setupVideosIn(element) {
 
 if (window.addEventListener) window.addEventListener("load", function(e) {
     // Insert menu from settings.js
-    if (typeof settingsMenu != "undefined") document.body.insertBefore(settingsMenu, document.body.firstChild);
+    if (typeof settingsMenu != "undefined") document.getElementsByClassName("boardlist")[0].appendChild(settingsMenu);
 
     // Setup Javascript events for videos in document now
     setupVideosIn(document);

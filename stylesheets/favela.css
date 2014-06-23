@@ -164,3 +164,7 @@ ul.fav_nav a {
 img.board_image {
 	border:0px;
 }
+
+div.webm-menu {
+	background-color: rgba(214,240,228, 0.8);
+}

@@ -1619,7 +1619,8 @@
 
 	// boardlist
 	$config['boards'] = array(
-		array('*','a','b','d','mod','cri','c'),
+		array('tudo'),
+		array('a','b','d','mod','cri','c'),
 		array('an','lit','mu','tv','jo','lan'),
 		array('cb','comp','help','pol','UF55','sch'),
 		array('34','pr0n','pinto','tr'),
