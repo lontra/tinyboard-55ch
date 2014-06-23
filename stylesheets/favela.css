@@ -96,7 +96,9 @@ hr {
 
 div.boardlist {
 	font-size: 13px;
+	background-color: rgba(214,240,228, 0.8);
 	color: #000;
+	padding: 0.5em;
 }
 
 div.boardlist a {
@@ -107,6 +109,14 @@ div.boardlist a {
 div.boardlist a:hover {
 	background-color: #FF7800;
 	color: #FFF;
+}
+
+.desktop-style div.boardlist:nth-child(1):hover, .desktop-style div.boardlist:nth-child(1).cb-menu {
+background-color: rgb(214,240,228);
+}
+
+.desktop-style .sub {
+	background: transparent;
 }
 
 div#playerW {

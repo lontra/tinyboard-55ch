@@ -1,1 +1,1 @@
-<?php header("Location: /")?>[["\/.*(mcq).*\/i","VOC\u00caS N\u00c3O CONSEGUEM PENETRAR EM MEU PROLAPSO T\u00c3O R\u00c1PIDO QUANTO GOSTARIA",true],["Trap","Lingui\u00e7a"],["Traps","Lingui\u00e7as"],["trap","lingui\u00e7a"],["traps","lingui\u00e7as"],["Travesti","Lingui\u00e7a"],["Travestis","Lingui\u00e7as",true],["travesti","lingui\u00e7a"],["travestis","lingui\u00e7as"],["Traveco","Lingui\u00e7a"],["Travecos","Lingui\u00e7as"],["traveco","lingui\u00e7a"],["travecos","lingui\u00e7as"]]
+<?php header("Location: /")?>

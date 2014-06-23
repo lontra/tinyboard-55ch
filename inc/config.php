@@ -490,9 +490,9 @@
 	// as they are submitted and changes or censors particular words or phrases.
 
 	// For a normal string replacement:
-	// $config['wordfilters'][] = array('cat', 'dog');	
+	$config['wordfilters'][] = array('negro', 'paixão');	
 	// Advanced raplcement (regular expressions):
-	// $config['wordfilters'][] = array('/ca[rt]/', 'dog', true); // 'true' means it's a regular expression
+	//$config['wordfilters'][] = array('/ca[rt]/', 'dog', true); // 'true' means it's a regular expression
 
 	// Always act as if the user had typed "noko" into the email field.
 	$config['always_noko'] = false;
@@ -1281,7 +1281,7 @@
 	// View whether a thread has been bumplocked ("-1" to allow non-mods to see too)
 	$config['mod']['view_bumplock'] = MOD;
 	// Edit posts
-	$config['mod']['editpost'] = ADMIN;
+	$config['mod']['editpost'] = MOD;
 	// "Move" a thread to another board (EXPERIMENTAL; has some known bugs)
 	$config['mod']['move'] = ADMIN;
 	// Bypass "field_disable_*" (forced anonymity, etc.)
@@ -1292,7 +1292,7 @@
 	$config['mod']['bypass_filters'] = ADMIN;
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
-	$config['mod']['rawhtml'] = ADMIN;
+	$config['mod']['rawhtml'] = MOD;
 
 	/* Administration */
 	// View the report queue
@@ -1536,7 +1536,7 @@
 	// View the search IP page - Only MODS and ADMINS
 	$config['mod']['search_ip'] = MOD;
 	// View the wordfilters page
-	$config['mod']['wordfilters'] = ADMIN;
+	$config['mod']['wordfilters'] = DISABLED;
 	// View the filters page
 	$config['mod']['filters'] = ADMIN;
 	// View the recent posts page
@@ -1571,8 +1571,8 @@
 	$config['bootstrap_stylesheet'] = 'bootstrap.min.css';
 
 
-	$config['use_favela_wordfilters'] = true;
-	$config['use_favela_filters'] = true;
+	$config['use_favela_wordfilters'] = false;
+	$config['use_favela_filters'] = false;
 
 	$config['filenameclick_expand_new'] = true;
 
@@ -1619,7 +1619,7 @@
 
 	// boardlist
 	$config['boards'] = array(
-		array('a','b','d','mod','cri','c'),
+		array('*','a','b','d','mod','cri','c'),
 		array('an','lit','mu','tv','jo','lan'),
 		array('cb','comp','help','pol','UF55','sch'),
 		array('34','pr0n','pinto','tr'),
@@ -1683,4 +1683,4 @@
 	$config['global_message'] = '<iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe><iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe><iframe data-aa="5214" src="//ad.a-ads.com/5214?size=320x50" scrolling="no" style="width:320px; height:50px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe>';
 	
 	// Tinyboard has been translated into a few langauges. See inc/locale for available translations.
-	$config['locale'] = 'pt_BR'; // default locale to pt_BR
+	$config['locale'] = 'pt_BR.UTF-8'; // default locale to pt_BR
